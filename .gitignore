@@ -2,3 +2,5 @@ node_modules/
 *.log
 .worktrees/
 docs/superpowers/
+dist/
+release-notes.md
