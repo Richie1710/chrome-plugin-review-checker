@@ -41,10 +41,10 @@ document.getElementById("save").addEventListener("click", async () => {
 
   await chrome.storage.local.set({
     baseUrl,
-    username: undefined,
     mrList: [],
     lastError: null,
   });
+  await chrome.storage.local.remove("username");
   showStatus("Gespeichert.", "success");
 });
 
