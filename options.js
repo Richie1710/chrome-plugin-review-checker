@@ -1,4 +1,7 @@
+import { t, DEFAULT_LOCALE, SUPPORTED_LOCALES } from "./lib/i18n.js";
+
 const input = document.getElementById("baseUrl");
+const languageSelect = document.getElementById("language");
 const status = document.getElementById("status");
 
 function normalizeBaseUrl(rawUrl) {
@@ -10,15 +13,33 @@ function showStatus(message, kind) {
   status.className = kind;
 }
 
-async function loadSavedUrl() {
-  const { baseUrl } = await chrome.storage.local.get("baseUrl");
-  if (baseUrl) input.value = baseUrl;
+function applyLanguage(lang) {
+  document.getElementById("title").textContent = t(lang, "options.title");
+  document.getElementById("baseUrlLabel").textContent = t(lang, "options.baseUrlLabel");
+  input.placeholder = t(lang, "options.baseUrlPlaceholder");
+  document.getElementById("languageLabel").textContent = t(lang, "options.languageLabel");
+  document.getElementById("save").textContent = t(lang, "options.save");
 }
 
+async function loadSaved() {
+  const { baseUrl, language } = await chrome.storage.local.get(["baseUrl", "language"]);
+  if (baseUrl) input.value = baseUrl;
+  const lang = SUPPORTED_LOCALES.includes(language) ? language : DEFAULT_LOCALE;
+  languageSelect.value = lang;
+  applyLanguage(lang);
+}
+
+languageSelect.addEventListener("change", async () => {
+  const lang = languageSelect.value;
+  applyLanguage(lang);
+  await chrome.storage.local.set({ language: lang });
+});
+
 document.getElementById("save").addEventListener("click", async () => {
+  const lang = languageSelect.value;
   const baseUrl = normalizeBaseUrl(input.value);
   if (!baseUrl) {
-    showStatus("Bitte eine URL eingeben.", "error");
+    showStatus(t(lang, "options.emptyUrlError"), "error");
     return;
   }
 
@@ -26,7 +47,7 @@ document.getElementById("save").addEventListener("click", async () => {
   try {
     origin = new URL(baseUrl).origin;
   } catch {
-    showStatus("Ungültige URL.", "error");
+    showStatus(t(lang, "options.invalidUrlError"), "error");
     return;
   }
 
@@ -35,7 +56,7 @@ document.getElementById("save").addEventListener("click", async () => {
   });
 
   if (!granted) {
-    showStatus("Berechtigung wurde nicht erteilt.", "error");
+    showStatus(t(lang, "options.permissionDenied"), "error");
     return;
   }
 
@@ -45,7 +66,7 @@ document.getElementById("save").addEventListener("click", async () => {
     lastError: null,
   });
   await chrome.storage.local.remove("username");
-  showStatus("Gespeichert.", "success");
+  showStatus(t(lang, "options.saved"), "success");
 });
 
-loadSavedUrl();
+loadSaved();
