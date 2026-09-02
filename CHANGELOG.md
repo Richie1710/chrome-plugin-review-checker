@@ -7,6 +7,11 @@ dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Added
+
+- Mehrsprachigkeit (Deutsch, Englisch, Spanisch) mit manuellem
+  Sprachumschalter in den Optionen
+
 ## [0.1.0] - 2026-09-02
 
 ### Added
