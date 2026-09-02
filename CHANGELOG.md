@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-02
+
 ### Added
 
 - Localization (German, English, Spanish) with a manual language switcher
@@ -35,5 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Unit tests for the pure logic modules (`lib/formatTime.js`,
   `lib/reviewFilter.js`, `lib/gitlabApi.js`)
 
-[Unreleased]: https://github.com/Richie1710/chrome-plugin-review-checker/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/Richie1710/chrome-plugin-review-checker/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Richie1710/chrome-plugin-review-checker/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Richie1710/chrome-plugin-review-checker/releases/tag/v0.1.0

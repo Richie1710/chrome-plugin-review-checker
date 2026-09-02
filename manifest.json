@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitLab Review Checker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shows open GitLab merge requests waiting on your review.",
   "action": {
     "default_popup": "popup.html",
