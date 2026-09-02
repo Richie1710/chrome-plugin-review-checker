@@ -36,6 +36,16 @@ straight to the merge request with one click.
 The extension automatically detects your GitLab username via the existing
 session and starts polling from there.
 
+## Privacy
+
+Everything stays local. The extension talks only to the GitLab base URL
+you configure — no other server, no analytics, no telemetry. Your GitLab
+username and the list of open reviews are cached in the browser's local
+extension storage (`chrome.storage.local`) purely to render the popup and
+badge; nothing is sent anywhere else. Authentication reuses your existing
+browser session cookie for that GitLab instance — the extension never
+sees or stores a password or access token.
+
 ## Development
 
 No build step needed — plain vanilla JS (ES modules), no runtime

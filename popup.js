@@ -51,14 +51,24 @@ function renderEmpty(language) {
   content.append(el("div", "empty-state", t(language, "popup.empty")));
 }
 
+function isHttpUrl(url) {
+  try {
+    return ["http:", "https:"].includes(new URL(url).protocol);
+  } catch {
+    return false;
+  }
+}
+
 function renderList(mrList, language, { append = false } = {}) {
   if (!append) content.replaceChildren();
   const now = new Date();
   for (const mr of mrList) {
     const card = el("a", "mr-card");
-    card.href = mr.webUrl;
-    card.target = "_blank";
-    card.rel = "noopener noreferrer";
+    if (isHttpUrl(mr.webUrl)) {
+      card.href = mr.webUrl;
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+    }
     card.append(el("p", "mr-title", mr.title));
     card.append(
       el(
