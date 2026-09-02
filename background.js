@@ -31,6 +31,11 @@ async function setBadge(count) {
   }
 }
 
+async function setBadgeError() {
+  await chrome.action.setBadgeText({ text: "!" });
+  await chrome.action.setBadgeBackgroundColor({ color: "#b00020" });
+}
+
 export async function syncReviews() {
   const baseUrl = await getStoredBaseUrl();
   if (!baseUrl) {
@@ -42,9 +47,9 @@ export async function syncReviews() {
     const username = await getOrFetchUsername(baseUrl);
     const mergeRequests = await fetchOpenReviewMRs(baseUrl, username);
 
-    const candidateMRs = mergeRequests.filter((mr) =>
-      (mr.reviewers ?? []).some((r) => r.username === username),
-    );
+    const candidateMRs = mergeRequests
+      .filter((mr) => (mr.reviewers ?? []).some((r) => r.username === username))
+      .slice(0, 50);
 
     const approvalsByKey = new Map();
     for (const mr of candidateMRs) {
@@ -65,7 +70,7 @@ export async function syncReviews() {
     } else {
       await setError(err.message ?? "Unknown error");
     }
-    await setBadge(0);
+    await setBadgeError();
   }
 }
 

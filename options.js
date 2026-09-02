@@ -39,7 +39,12 @@ document.getElementById("save").addEventListener("click", async () => {
     return;
   }
 
-  await chrome.storage.local.set({ baseUrl });
+  await chrome.storage.local.set({
+    baseUrl,
+    username: undefined,
+    mrList: [],
+    lastError: null,
+  });
   showStatus("Gespeichert.", "success");
 });
 

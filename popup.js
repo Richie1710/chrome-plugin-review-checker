@@ -23,15 +23,24 @@ function renderNoBaseUrl() {
   content.append(state);
 }
 
-function renderError(lastError) {
-  content.replaceChildren();
+function buildErrorState(lastError, baseUrl) {
   const state = el("div", "error-state");
   if (lastError.status === 401) {
-    state.textContent = "Nicht bei GitLab eingeloggt. Bitte im Browser einloggen und erneut aktualisieren.";
+    state.append("Nicht bei GitLab eingeloggt. Bitte im Browser einloggen und erneut aktualisieren. ");
+    const link = el("a", null, "Jetzt einloggen");
+    link.href = `${baseUrl}/users/sign_in`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    state.append(link);
   } else {
     state.textContent = `Fehler beim Laden: ${lastError.message}`;
   }
-  content.append(state);
+  return state;
+}
+
+function renderError(lastError, baseUrl) {
+  content.replaceChildren();
+  content.append(buildErrorState(lastError, baseUrl));
 }
 
 function renderEmpty() {
@@ -39,8 +48,8 @@ function renderEmpty() {
   content.append(el("div", "empty-state", "Keine offenen Reviews 🎉"));
 }
 
-function renderList(mrList) {
-  content.replaceChildren();
+function renderList(mrList, { append = false } = {}) {
+  if (!append) content.replaceChildren();
   const now = new Date();
   for (const mr of mrList) {
     const card = el("a", "mr-card");
@@ -71,7 +80,13 @@ async function render() {
     return;
   }
   if (lastError) {
-    renderError(lastError);
+    if (lastError.status === 401 || !mrList || mrList.length === 0) {
+      renderError(lastError, baseUrl);
+      return;
+    }
+    content.replaceChildren();
+    content.append(buildErrorState(lastError, baseUrl));
+    renderList(mrList, { append: true });
     return;
   }
   if (!mrList || mrList.length === 0) {
