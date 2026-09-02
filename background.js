@@ -25,7 +25,7 @@ async function setError(message, status = null) {
 async function setBadge(count) {
   if (count > 0) {
     await chrome.action.setBadgeText({ text: String(count) });
-    await chrome.action.setBadgeBackgroundColor({ color: "#1f75cb" });
+    await chrome.action.setBadgeBackgroundColor({ color: "#0f8b8d" });
   } else {
     await chrome.action.setBadgeText({ text: "" });
   }
@@ -33,7 +33,7 @@ async function setBadge(count) {
 
 async function setBadgeError() {
   await chrome.action.setBadgeText({ text: "!" });
-  await chrome.action.setBadgeBackgroundColor({ color: "#b00020" });
+  await chrome.action.setBadgeBackgroundColor({ color: "#c4432b" });
 }
 
 export async function syncReviews() {

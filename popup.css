@@ -1,59 +1,122 @@
+:root {
+  --bg: #eef1f3;
+  --surface: #ffffff;
+  --border: #d7dee3;
+  --ink: #14181c;
+  --ink-muted: #5b6670;
+  --accent: #0f8b8d;
+  --danger: #c4432b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10151a;
+    --surface: #171e24;
+    --border: #2a343c;
+    --ink: #e7ecef;
+    --ink-muted: #8ca0ac;
+    --accent: #37c9c2;
+    --danger: #ff7a63;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   width: 340px;
   margin: 0;
   padding: 0;
+  background: var(--bg);
+  color: var(--ink);
 }
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 12px;
-  border-bottom: 1px solid #e0e0e0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
+
 h1 {
   font-size: 14px;
+  font-weight: 700;
   margin: 0;
 }
+
 #refresh {
   border: none;
   background: none;
   font-size: 16px;
+  color: var(--ink-muted);
   cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
 }
+
+#refresh:hover {
+  color: var(--accent);
+}
+
+#refresh:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 #content {
   max-height: 400px;
   overflow-y: auto;
   padding: 8px 12px;
 }
+
 .mr-card {
   display: block;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 6px;
+  margin: 0 -6px;
+  border-radius: 6px;
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
+
+.mr-card:hover {
+  background: var(--surface);
+}
+
 .mr-card:last-child {
   border-bottom: none;
 }
+
 .mr-title {
   font-size: 13px;
   font-weight: 600;
   margin: 0 0 2px 0;
+  color: var(--ink);
 }
+
 .mr-meta {
+  font-family: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
   font-size: 11px;
-  color: #666;
+  color: var(--ink-muted);
 }
+
 .empty-state,
 .error-state {
   font-size: 13px;
-  color: #444;
+  color: var(--ink-muted);
   padding: 12px 0;
 }
+
 .error-state {
-  color: #b00020;
+  color: var(--danger);
 }
+
 .error-state a,
 .empty-state a {
-  color: #1f75cb;
+  color: var(--accent);
 }
