@@ -108,7 +108,13 @@ async function render() {
 refreshButton.addEventListener("click", async () => {
   const { language } = await chrome.storage.local.get("language");
   content.replaceChildren(el("div", "empty-state", t(language ?? DEFAULT_LOCALE, "popup.loading")));
-  chrome.runtime.sendMessage({ type: "SYNC_NOW" });
+  try {
+    await chrome.runtime.sendMessage({ type: "SYNC_NOW" });
+  } catch {
+    // Service worker was asleep and didn't wake in time for this message;
+    // storage.onChanged from the next alarm-driven sync will still update the view.
+  }
+  render();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {

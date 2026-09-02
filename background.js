@@ -85,9 +85,12 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
 });
 
-chrome.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === "SYNC_NOW") {
-    syncReviews();
+    syncReviews()
+      .then(() => sendResponse({ ok: true }))
+      .catch(() => sendResponse({ ok: false }));
+    return true; // keep the message channel (and the service worker) alive until sendResponse fires
   }
 });
 
