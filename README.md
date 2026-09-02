@@ -1,64 +1,62 @@
 # GitLab Review Checker
 
-Chrome-Extension, die gegen eine self-hosted GitLab-Instanz prüft, ob offene
-Merge Requests auf deine Review warten, sie in einem Popup auflistet und dich
-per Klick direkt zum jeweiligen Merge Request bringt.
+Chrome extension that checks a self-hosted GitLab instance for merge
+requests waiting on your review, lists them in a popup, and takes you
+straight to the merge request with one click.
 
 ## Features
 
-- Läuft gegen self-hosted GitLab, Basis-URL frei konfigurierbar
-- Auth über die bestehende Browser-Session (Cookie) — kein Personal Access
-  Token, kein OAuth
-- Badge-Zahl am Extension-Icon, automatisch aktualisiert alle 5 Minuten
-- Popup listet offene Reviews (Titel, Projekt, Autor, Alter); Klick öffnet
-  den Merge Request direkt in einem neuen Tab
-- "Offene Review" = Merge Request ist offen, du bist als Reviewer
-  eingetragen und hast noch nicht approved
+- Works against self-hosted GitLab; base URL is freely configurable
+- Authenticates via your existing browser session (cookie) — no Personal
+  Access Token, no OAuth
+- Badge count on the extension icon, refreshed automatically every 5
+  minutes
+- Popup lists open reviews (title, project, author, age); clicking one
+  opens the merge request in a new tab
+- "Open review" = the merge request is open, you're listed as a
+  reviewer, and you haven't approved yet
+- Localized in German, English, and Spanish, with a manual language
+  switcher in the options page
+- Adapts to your system's light/dark color scheme
 
 ## Installation
 
-1. Dieses Repository klonen oder als ZIP herunterladen
-2. In Chrome `chrome://extensions` öffnen
-3. Oben rechts "Entwicklermodus" aktivieren
-4. "Entpackt laden" klicken und diesen Projektordner auswählen
+1. Clone this repository or download it as a ZIP
+2. Open `chrome://extensions` in Chrome
+3. Enable "Developer mode" in the top right
+4. Click "Load unpacked" and select this project folder
 
-## Konfiguration
+## Configuration
 
-1. Rechtsklick auf das Extension-Icon → "Optionen" (oder über
-   `chrome://extensions` → Details → "Erweiterungsoptionen")
-2. Basis-URL deiner GitLab-Instanz eintragen (z. B. `https://gitlab.firma.de`)
-3. Speichern und die angefragte Berechtigung für diese Domain erteilen
+1. Right-click the extension icon → "Options" (or via `chrome://extensions`
+   → Details → "Extension options")
+2. Enter your GitLab instance's base URL (e.g. `https://gitlab.company.com`)
+3. Save and grant the requested permission for that domain
 
-Die Extension ermittelt deinen GitLab-Benutzernamen automatisch über die
-bestehende Session und beginnt danach mit dem Polling.
+The extension automatically detects your GitLab username via the existing
+session and starts polling from there.
 
-## Entwicklung
+## Development
 
-Kein Build-Schritt nötig — reines Vanilla JS (ES-Module), keine
-Laufzeit-Abhängigkeiten.
+No build step needed — plain vanilla JS (ES modules), no runtime
+dependencies.
 
 ```bash
 npm test
 ```
 
-führt die Unit-Tests der reinen Logik-Module (`lib/formatTime.js`,
-`lib/reviewFilter.js`, `lib/gitlabApi.js`) über Node's eingebauten
-Test-Runner aus. `background.js`, `options.js` und `popup.js` sind
-Chrome-API-Glue-Code ohne automatisierte Tests — Verifikation erfolgt
-manuell im entpackten Zustand gegen eine echte GitLab-Instanz.
-
-## Architektur
-
-Details zu Design-Entscheidungen und der Aufteilung in Module siehe
-[docs/superpowers/specs](docs/superpowers/specs) (falls lokal vorhanden —
-dieser Ordner wird nicht versioniert).
+runs the unit tests for the pure logic modules (`lib/formatTime.js`,
+`lib/reviewFilter.js`, `lib/gitlabApi.js`, `lib/i18n.js`) via Node's
+built-in test runner. `background.js`, `options.js`, and `popup.js` are
+Chrome API glue code without automated tests — verification happens
+manually in the unpacked state against a real GitLab instance.
 
 ## Release
 
-Siehe [CHANGELOG.md](CHANGELOG.md) für die Versionshistorie. Ein neues
-Release wird über einen Git-Tag ausgelöst — Details im
-[Release-Workflow](.github/workflows/release.yml).
+See [CHANGELOG.md](CHANGELOG.md) for the version history. A new release
+is triggered by pushing a Git tag — see the
+[release workflow](.github/workflows/release.yml) for details.
 
-## Lizenz
+## License
 
-Privates Projekt, keine Lizenz vergeben.
+[MIT](LICENSE)
