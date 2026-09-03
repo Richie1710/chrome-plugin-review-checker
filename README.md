@@ -1,3 +1,5 @@
+<img src="assets/logo.svg" alt="GitLab Review Checker" width="480" />
+
 # GitLab Review Checker
 
 Chrome extension that checks a self-hosted GitLab instance for merge

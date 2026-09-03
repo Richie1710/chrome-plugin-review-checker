@@ -1,0 +1,30 @@
+<svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GitLab Review Checker">
+  <rect x="0" y="0" width="640" height="180" rx="24" fill="#10151a" />
+  <rect x="32" y="30" width="120" height="120" rx="26" fill="#37c9c2" />
+  <path
+    d="M 62 92 L 88 118 L 122 62"
+    fill="none"
+    stroke="#06201f"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <text
+    x="188"
+    y="98"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    font-size="56"
+    font-weight="800"
+    letter-spacing="-1"
+    fill="#eceff2"
+  >GitLab</text>
+  <text
+    x="190"
+    y="136"
+    font-family="ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace"
+    font-size="20"
+    font-weight="700"
+    letter-spacing="4"
+    fill="#37c9c2"
+  >REVIEW CHECKER</text>
+</svg>
